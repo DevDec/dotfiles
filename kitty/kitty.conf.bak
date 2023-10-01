@@ -1,0 +1,14 @@
+# Hello, laracasts
+font_family JetBrainsMonoNL Nerd Font Mono Bold
+bold_font JetBrainsMonoNL Nerd Font Mono Bold
+italic_font JetBrainsMonoNL Nerd Font Mono Bold
+bold_italic_font JetBrainsMonoNL Nerd Font Mono Bold
+
+font_size 16
+adjust_line_height 175%
+
+cursor_blink_interval 0
+enable_audio_bell 0
+hide_window_decorations yes
+
+window_padding_width 10
