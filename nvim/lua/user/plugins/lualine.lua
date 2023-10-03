@@ -9,7 +9,8 @@ require('lualine').setup({
       normal = {
         a = 'StatusLine',
         b = 'StatusLine',
-        c = 'StatusLine', },
+        c = 'StatusLine',
+      },
     },
   },
   sections = {

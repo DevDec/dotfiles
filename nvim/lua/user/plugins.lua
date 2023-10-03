@@ -8,7 +8,9 @@ local ensure_packer = function()
   end
   return false
 end
+
 local packer_bootstrap = ensure_packer()
+
 require('packer').reset()
 require('packer').init({
   compile_path = vim.fn.stdpath('data')..'/site/plugin/packer_compiled.lua',
@@ -18,7 +20,9 @@ require('packer').init({
     end,
   },
 })
+
 local use = require('packer').use
+
 -- Packer can manage itself.
 use('wbthomason/packer.nvim')
 
@@ -27,6 +31,7 @@ use({
   'jessarcher/onedark.nvim',
   config = function()
     vim.cmd('colorscheme onedark')
+
     vim.api.nvim_set_hl(0, 'FloatBorder', {
       fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
       bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
@@ -38,6 +43,8 @@ use({
       bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
     })
 
+    vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
+
     vim.api.nvim_set_hl(0, 'StatusLineNonText', {
       fg = vim.api.nvim_get_hl_by_name('NonText', true).foreground,
       bg = vim.api.nvim_get_hl_by_name('StatusLine', true).background,
@@ -46,6 +53,7 @@ use({
     vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
   end,
 })
+
 -- Commenting support.
 use('tpope/vim-commentary')
 
@@ -153,6 +161,15 @@ use({
   end,
 })
 
+-- File tree sidebar
+use({
+  'kyazdani42/nvim-tree.lua',
+  requires = 'kyazdani42/nvim-web-devicons',
+  config = function()
+    require('user/plugins/nvim-tree')
+  end,
+})
+
 -- A Status line.
 use({
   'nvim-lualine/lualine.nvim',
@@ -175,39 +192,24 @@ use({
 -- Display indentation lines.
 -- use({
 --   'lukas-reineke/indent-blankline.nvim',
---   version = "2.20.8",
 --   config = function()
 --     require('user/plugins/indent-blankline')
---   end
+--   end,
 -- })
 
+-- Add a dashboard.
 use({
-    'glepnir/dashboard-nvim',
-    config = function()
-      require('user/plugins/dashboard-nvim')
-    end,
-})
-
--- Add a ashboard.
--- use({
---   'glepnir/dashboard-nvim',
---   config = function()
---     require('dashboard-nvim').setup()
---   end
--- })
-
--- File tree sidebar
-use({
-  'kyazdani42/nvim-tree.lua',
-  requires = 'kyazdani42/nvim-web-devicons',
+  'glepnir/dashboard-nvim',
   config = function()
-    require('user/plugins/nvim-tree')  end,
+    require('user/plugins/dashboard-nvim')
+  end
 })
+
 -- Git integration.
 use({
   'lewis6991/gitsigns.nvim',
   config = function()
-    require('gitsigns').setup()
+    require('gitsigns').setup({current_line_blame = true})
     vim.keymap.set('n', ']h', ':Gitsigns next_hunk<CR>')
     vim.keymap.set('n', '[h', ':Gitsigns prev_hunk<CR>')
     vim.keymap.set('n', 'gs', ':Gitsigns stage_hunk<CR>')
@@ -217,15 +219,111 @@ use({
   end,
 })
 
+-- Git commands.
+use({
+  'tpope/vim-fugitive',
+  requires = 'tpope/vim-rhubarb',
+})
+
+--- Floating terminal.
+use({
+  'voldikss/vim-floaterm',
+  config = function()
+    vim.g.floaterm_width = 0.8
+    vim.g.floaterm_height = 0.8
+    vim.keymap.set('n', '<F1>', ':FloatermToggle<CR>')
+    vim.keymap.set('t', '<F1>', '<C-\\><C-n>:FloatermToggle<CR>')
+    vim.cmd([[
+      highlight link Floaterm CursorLine
+      highlight link FloatermBorder CursorLineBg
+    ]])
+  end
+})
+
+-- Improved syntax highlighting
+use({
+  'nvim-treesitter/nvim-treesitter',
+  run = function()
+    require('nvim-treesitter.install').update({ with_sync = true })
+  end,
+  requires = {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    'nvim-treesitter/nvim-treesitter-textobjects',
+  },
+  config = function()
+    require('user/plugins/treesitter')
+  end,
+})
+
+-- Language Server Protocol.
+use({
+  'neovim/nvim-lspconfig',
+  requires = {
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'b0o/schemastore.nvim',
+    'jose-elias-alvarez/null-ls.nvim',
+    'jayp0521/mason-null-ls.nvim',
+  },
+  config = function()
+    require('user/plugins/lspconfig')
+  end,
+})
+
+-- Completion
+use({
+  'hrsh7th/nvim-cmp',
+  requires = {
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
+    'onsails/lspkind-nvim',
+  },
+  config = function()
+    require('user/plugins/cmp')
+  end,
+})
+
+-- PHP Refactoring Tools
+use({
+  'phpactor/phpactor',
+  ft = 'php',
+  run = 'composer install --no-dev --optimize-autoloader',
+  config = function()
+    vim.keymap.set('n', '<Leader>pm', ':PhpactorContextMenu<CR>')
+    vim.keymap.set('n', '<Leader>pn', ':PhpactorClassNew<CR>')
+  end,
+})
+
+-- Project Configuration.
+use({
+  'tpope/vim-projectionist',
+  requires = 'tpope/vim-dispatch',
+  config = function()
+    require('user/plugins/projectionist')
+  end,
+})
+
+-- Testing helper
+use({
+  'vim-test/vim-test',
+  config = function()
+    require('user/plugins/vim-test')
+  end,
+})
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
     require('packer').sync()
 end
+
 vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile>
   augroup end
 ]])
-
