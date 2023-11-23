@@ -315,6 +315,17 @@ use({
   end,
 })
 
+use ({
+    'ThePrimeagen/harpoon',
+    config = function()
+      require('harpoon').setup({
+          tabline = true
+        })
+      vim.keymap.set('n', '<Leader>ho', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
+      vim.keymap.set('n', '<Leader>ha', ':lua require("harpoon.mark").add_file()<CR>')
+    end,
+  })
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
