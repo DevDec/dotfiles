@@ -1,48 +1,53 @@
 local actions = require('telescope.actions')
-
-vim.cmd([[
-  highlight link TelescopePromptTitle PMenuSel
-  highlight link TelescopePreviewTitle PMenuSel
-  highlight link TelescopePromptNormal NormalFloat
-  highlight link TelescopePromptBorder FloatBorder
-  highlight link TelescopeNormal CursorLine
-  highlight link TelescopeBorder CursorLineBg
-]])
+local lga_actions = require("telescope-live-grep-args.actions")
 
 require('telescope').setup({
+    extensions= {
+      live_grep_args = {
+        auto_quoting = true,
+        mappings = {
+          i = {
+            ["<C-k>"] = lga_actions.quote_prompt(),
+            ["<C-i>"] = lga_actions.quote_prompt({postfix = " --iglob "}),
+          },
+        },
+      }
+    },
   defaults = {
     path_display = { truncate = 1 },
     prompt_prefix = '   ',
     selection_caret = '  ',
-    layout_config = {
-      prompt_position = 'top',
-    },
     sorting_strategy = 'ascending',
-    mappings = {
-      i = {
-        ['<esc>'] = actions.close,
-        ['<C-Down>'] = actions.cycle_history_next,
-        ['<C-Up>'] = actions.cycle_history_prev,
-      },
-    },
     file_ignore_patterns = { '.git/' },
   },
   pickers = {
     find_files = {
       hidden = true,
+      initial_mode = "normal"
     },
     buffers = {
       previewer = false,
+      initial_mode = "normal",
       layout_config = {
         width = 80,
       },
     },
     oldfiles = {
+      initial_mode = "normal",
       prompt_title = 'History',
     },
     lsp_references = {
-      previewer = false,
+      initial_mode = "normal",
+      previewer = true,
     },
+    lsp_implementations = {
+      initial_mode = "normal",
+      previewer = true,
+    },
+    lsp_document_symbols = {
+      initial_mode = "normal",
+      previewer = true,
+    }
   },
 })
 
@@ -53,6 +58,6 @@ require('telescope').load_extension('harpoon')
 vim.keymap.set('n', '<leader>f', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
 vim.keymap.set('n', '<leader>F', [[<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' })<CR>]])
 vim.keymap.set('n', '<leader>b', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
-vim.keymap.set('n', '<leader>g', [[<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>]])
+vim.keymap.set('n', '<leader>g', [[<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({noremap=true})<CR>]])
 vim.keymap.set('n', '<leader>o', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 vim.keymap.set('n', '<leader>s', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
