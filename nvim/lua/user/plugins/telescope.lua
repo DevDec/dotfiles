@@ -11,6 +11,8 @@ require('telescope').setup({
             ["<C-i>"] = lga_actions.quote_prompt({postfix = " --iglob "}),
           },
         },
+        previewer = true,
+        initial_mode = "normal",
       }
     },
   defaults = {
@@ -31,6 +33,10 @@ require('telescope').setup({
       layout_config = {
         width = 80,
       },
+    },
+    live_grep = {
+      previewer = true,
+      initial_mode = "normal",
     },
     oldfiles = {
       initial_mode = "normal",
