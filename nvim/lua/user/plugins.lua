@@ -213,8 +213,8 @@ use({
   config = function()
     vim.g.floaterm_width = 0.8
     vim.g.floaterm_height = 0.8
-    vim.keymap.set('n', '<Tab>', ':FloatermToggle<CR>')
-    vim.keymap.set('t', '<Tab>', '<C-\\><C-n>:FloatermToggle<CR>')
+    vim.keymap.set('n', '<Tab>t', ':FloatermToggle<CR>')
+    vim.keymap.set('t', '<Tab>t', '<C-\\><C-n>:FloatermToggle<CR>')
     vim.cmd([[
       highlight link Floaterm CursorLine
       highlight link FloatermBorder CursorLineBg
