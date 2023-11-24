@@ -179,24 +179,6 @@ use({
   end,
 })
 
--- Display buffers as tabs.
-use({
-  'akinsho/bufferline.nvim',
-  requires = 'kyazdani42/nvim-web-devicons',
-  after = 'onedark.nvim',
-  config = function()
-    require('user/plugins/bufferline')
-  end,
-})
-
--- Display indentation lines.
--- use({
---   'lukas-reineke/indent-blankline.nvim',
---   config = function()
---     require('user/plugins/indent-blankline')
---   end,
--- })
-
 -- Add a dashboard.
 use({
   'glepnir/dashboard-nvim',
