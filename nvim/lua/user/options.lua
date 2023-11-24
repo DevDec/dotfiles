@@ -25,7 +25,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.list = true
-vim.opt.listchars = { tab = '> ', trail = '.' } 
+vim.opt.listchars = { tab = '> ', trail = '.' }
 vim.opt.fillchars:append({ eob = ' ' })
 
 vim.opt.splitbelow = true
