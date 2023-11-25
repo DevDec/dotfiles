@@ -76,3 +76,5 @@ vim.keymap.set('n', '<leader>g', [[<cmd>lua require('telescope').extensions.live
 vim.keymap.set('n', '<leader>o', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 vim.keymap.set('n', '<leader>s', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
 vim.keymap.set('n', '<leader>m', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
+vim.keymap.set("n", "<Tab>h", function()
+     return ":lua require('harpoon.ui').nav_file(" .. vim.v.count .. ")<CR>" end, {expr = true})
