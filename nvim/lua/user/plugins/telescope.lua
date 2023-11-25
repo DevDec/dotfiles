@@ -74,6 +74,7 @@ require('telescope').setup({
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('live_grep_args')
 require('telescope').load_extension('harpoon')
+require('telescope').load_extension('git_worktree')
 
 vim.keymap.set('n', '<leader>f', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
 vim.keymap.set('n', '<leader>F', [[<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' })<CR>]])
@@ -86,3 +87,9 @@ vim.keymap.set('n', '<leader>r' , [[<cmd>lua require('telescope.builtin').regist
 vim.keymap.set('n', '<leader>c' , [[<cmd>lua require('telescope.builtin').commands()<CR>]])
 vim.keymap.set("n", "<Tab>h", function()
      return ":lua require('harpoon.ui').nav_file(" .. vim.v.count .. ")<CR>" end, {expr = true})
+
+
+vim.keymap.set('n', '<leader>wo', [[<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>]])
+vim.keymap.set('n', '<leader>wc', [[<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>]])
+
+   

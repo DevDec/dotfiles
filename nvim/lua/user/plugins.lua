@@ -26,6 +26,7 @@ require("lazy").setup({
         vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
       end,
     },
+    {'DevDec/git-worktree.nvim'},
     {'easymotion/vim-easymotion'},
 
     -- Commenting support.
