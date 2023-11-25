@@ -57,7 +57,7 @@ vim.keymap.set('n', 'gi', ':Telescope lsp_implementations show_line=false<CR>')
 vim.keymap.set('n', 'gr', ':Telescope lsp_references show_line=false<CR>')
 vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-vim.keymap.set('n', '<Leader>dd', 'Telescope diagnostics<CR>')
+vim.keymap.set('n', '<Leader>dd', ':Telescope diagnostics<CR>')
 
 -- Commands
 -- vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})

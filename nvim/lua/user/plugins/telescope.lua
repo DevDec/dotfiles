@@ -53,6 +53,14 @@ require('telescope').setup({
     lsp_document_symbols = {
       initial_mode = "normal",
       previewer = true,
+    },
+    diagnostics = {
+      initial_mode = "normal",
+      previewer = true,
+    },
+    keymaps = {
+      initial_mode = "normal",
+      previewer = true,
     }
   },
 })
@@ -67,3 +75,4 @@ vim.keymap.set('n', '<leader>b', [[<cmd>lua require('telescope.builtin').buffers
 vim.keymap.set('n', '<leader>g', [[<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({noremap=true})<CR>]])
 vim.keymap.set('n', '<leader>o', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 vim.keymap.set('n', '<leader>s', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
+vim.keymap.set('n', '<leader>m', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
