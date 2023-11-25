@@ -1,10 +1,10 @@
--- One Dark theme.
 require("lazy").setup({
     {
-      'jessarcher/onedark.nvim',
+      'catppuccin/nvim',
+      name = "catppuccin",
+      priority = 1000,
       config = function()
-        vim.cmd('colorscheme onedark')
-
+        vim.cmd.colorscheme "catppuccin-mocha"
         vim.api.nvim_set_hl(0, 'FloatBorder', {
             fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
             bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
@@ -26,6 +26,7 @@ require("lazy").setup({
         vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
       end,
     },
+    {'easymotion/vim-easymotion'},
 
     -- Commenting support.
     {'tpope/vim-commentary'},
@@ -97,6 +98,7 @@ require("lazy").setup({
     -- All closing buffers without closing the split window.
     {
       'famiu/bufdelete.nvim',
+
       config = function()
         vim.keymap.set('n', '<Leader>q', ':Bdelete<CR>')
       end,
