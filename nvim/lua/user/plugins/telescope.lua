@@ -11,8 +11,6 @@ require('telescope').setup({
             ["<C-i>"] = lga_actions.quote_prompt({postfix = " --iglob "}),
           },
         },
-        previewer = true,
-        initial_mode = "normal",
       },
       fzf = {
         fuzzy = true,                    -- false will only do exact matching
@@ -22,58 +20,30 @@ require('telescope').setup({
         -- the default case_mode is "smart_case"
       }
     },
-  defaults = {
-    path_display = { truncate = 1 },
-    sorting_strategy = 'ascending',
-    file_ignore_patterns = { '.git/' },
-  },
-  pickers = {
-    find_files = {
-      hidden = true,
-      initial_mode = "normal"
-    },
-    buffers = {
+    defaults = {
+      prompt_prefix = ">  ",
       previewer = false,
       initial_mode = "normal",
-      layout_config = {
-        width = 80,
+      path_display = { truncate = 1 },
+      sorting_strategy = 'ascending',
+      file_ignore_patterns = { '.git/' },
+    },
+    pickers = {
+      find_files = {
+        hidden = true,
       },
+      buffers = {
+        layout_config = {
+          width = 80,
+        },
+      },
+      oldfiles = {
+        prompt_title = 'History',
+      },
+      commands = {
+        initial_mode = "normal"
+      }
     },
-    live_grep = {
-      previewer = true,
-      initial_mode = "normal",
-    },
-    oldfiles = {
-      initial_mode = "normal",
-      prompt_title = 'History',
-    },
-    lsp_references = {
-      initial_mode = "normal",
-      previewer = true,
-    },
-    lsp_implementations = {
-      initial_mode = "normal",
-      previewer = true,
-    },
-    lsp_document_symbols = {
-      initial_mode = "normal",
-      previewer = true,
-    },
-    diagnostics = {
-      initial_mode = "normal",
-      previewer = true,
-    },
-    keymaps = {
-      initial_mode = "normal",
-      previewer = true,
-    },
-    registers = {
-      initial_mode = "normal",
-    },
-    commands = {
-      initial_mode = "normal"
-    }
-  },
 })
 
 require('telescope').load_extension('fzf')
