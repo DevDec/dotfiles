@@ -13,12 +13,17 @@ require('telescope').setup({
         },
         previewer = true,
         initial_mode = "normal",
+      },
+      fzf = {
+        fuzzy = true,                    -- false will only do exact matching
+        override_generic_sorter = true,  -- override the generic sorter
+        override_file_sorter = true,     -- override the file sorter
+        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+        -- the default case_mode is "smart_case"
       }
     },
   defaults = {
     path_display = { truncate = 1 },
-    prompt_prefix = '   ',
-    selection_caret = '  ',
     sorting_strategy = 'ascending',
     file_ignore_patterns = { '.git/' },
   },
@@ -75,6 +80,7 @@ require('telescope').load_extension('fzf')
 require('telescope').load_extension('live_grep_args')
 require('telescope').load_extension('harpoon')
 require('telescope').load_extension('git_worktree')
+require('telescope').load_extension('fzf')
 
 vim.keymap.set('n', '<leader>f', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
 vim.keymap.set('n', '<leader>F', [[<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' })<CR>]])
