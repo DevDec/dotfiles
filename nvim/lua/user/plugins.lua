@@ -1,34 +1,32 @@
 require("lazy").setup({
     {
-      'catppuccin/nvim',
-      name = "catppuccin",
-      priority = 1000,
+      'maxmx03/dracula.nvim',
       config = function()
-        vim.cmd.colorscheme "catppuccin-mocha"
-        vim.api.nvim_set_hl(0, 'FloatBorder', {
-            fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
-            bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
+        local dracula = require 'dracula'
+        local draculapro = require 'draculapro'
+
+        draculapro.setup({
+            theme = 'morbius'
           })
 
-        -- Make the cursor line background invisible
-        vim.api.nvim_set_hl(0, 'CursorLineBg', {
-            fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-            bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-          })
+        dracula.setup {
+          dracula_pro = draculapro,
+          colors = draculapro.colors
+        }
 
-        vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
-
-        vim.api.nvim_set_hl(0, 'StatusLineNonText', {
-            fg = vim.api.nvim_get_hl_by_name('NonText', true).foreground,
-            bg = vim.api.nvim_get_hl_by_name('StatusLine', true).background,
-          })
-
-        vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
+        vim.cmd.colorscheme 'dracula'
       end,
+      dependencies = {
+        'DevDec/dracula-pro',
+      },
     },
     {'DevDec/git-worktree.nvim'},
     {'easymotion/vim-easymotion'},
-
+    {
+      name = "transmit",
+      'DevDec/transmit.nim',
+      dir = "/Volumes/T7/transmit.nvim.git/main"
+    },
     -- Commenting support.
     {'tpope/vim-commentary'},
 
