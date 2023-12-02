@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-# Credit to ThePrimeagen
+# # Credit to ThePrimeagen
 
 if [[ $# -eq 1 ]]; then
     selected=$1

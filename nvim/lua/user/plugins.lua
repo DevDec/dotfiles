@@ -94,15 +94,6 @@ require("lazy").setup({
       end,
     },
 
-    -- All closing buffers without closing the split window.
-    {
-      'famiu/bufdelete.nvim',
-
-      config = function()
-        vim.keymap.set('n', '<Leader>q', ':Bdelete<CR>')
-      end,
-    },
-
     -- Split arrays and methods onto multiple lines, or join them back up.
     {
       'AndrewRadev/splitjoin.vim',
