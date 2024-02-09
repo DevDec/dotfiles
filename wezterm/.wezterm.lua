@@ -4,8 +4,8 @@ local wezterm = require 'wezterm'
 local mux = wezterm.mux
 
 wezterm.on("gui-startup", function()
-  local tab, pane, window = mux.spawn_window{}
-  window:gui_window():maximize()
+   local tab, pane, window = mux.spawn_window(cmd or {})
+   window:gui_window():maximize()
 end)
 
 -- This table will hold the configuration.
@@ -32,7 +32,7 @@ config.window_padding = {
   bottom = 0
 }
 
-config.font_size = 12
+config.font_size = 9
 
 config.window_decorations = "NONE"
 

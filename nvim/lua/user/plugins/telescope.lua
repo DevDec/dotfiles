@@ -1,5 +1,60 @@
 local actions = require('telescope.actions')
 local lga_actions = require("telescope-live-grep-args.actions")
+local action_state = require "telescope.actions.state";
+local utils = require "telescope.utils"
+
+--- Ask user to confirm an action
+---@param prompt string: The prompt for confirmation
+---@param default_value string: The default value of user input
+---@param yes_values table: List of positive user confirmations ({"y", "yes"} by default)
+---@return boolean: Whether user confirmed the prompt
+local function ask_to_confirm(prompt, default_value, yes_values)
+  yes_values = yes_values or { "y", "yes" }
+  default_value = default_value or ""
+  local confirmation = vim.fn.input(prompt, default_value)
+  confirmation = string.lower(confirmation)
+  if string.len(confirmation) == 0 then
+    return false
+  end
+  for _, v in pairs(yes_values) do
+    if v == confirmation then
+      return true
+    end
+  end
+  return false
+end
+
+local git_drop_stash = function(prompt_bufnr)
+  local selection = action_state.get_selected_entry()
+
+  local confirmation = ask_to_confirm(string.format("Drop stash '%s'? [y/n]: ", selection.value))
+  if not confirmation then
+    utils.notify("actions.git_drop_stash", {
+        msg = string.format("Drop stash canceled: '%s'", selection.value),
+        level = "INFO",
+      })
+    return
+  end
+
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  picker:delete_selection(function(selection)
+    local _, ret, stderr = utils.get_os_command_output { "git", "stash", "drop", selection.value }
+
+    if ret == 0 then
+      utils.notify("actions.git_drop_stash", {
+          msg = string.format("Dropped stash: '%s' ", selection.value),
+          level = "INFO",
+        })
+    else
+      utils.notify("actions.git_apply_stash", {
+          msg = string.format("Error when dropping: %s. Git returned: '%s'", selection.value, table.concat(stderr, " ")),
+          level = "ERROR",
+        })
+    end    
+
+    return ret == 0
+  end)
+end
 
 require('telescope').setup({
     extensions= {
@@ -42,6 +97,17 @@ require('telescope').setup({
       },
       commands = {
         initial_mode = "normal"
+      },
+      live_grep_args = {
+
+
+      },
+      git_stash = {
+        mappings = {
+          n = {
+            ["<c-d>"] = git_drop_stash,
+          },
+        },
       }
     },
 })
@@ -58,6 +124,8 @@ vim.keymap.set('n', '<leader>b', [[<cmd>lua require('telescope.builtin').buffers
 vim.keymap.set('n', '<leader>g', [[<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({noremap=true})<CR>]])
 vim.keymap.set('n', '<leader>o', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 vim.keymap.set('n', '<leader>s', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
+vim.keymap.set('n', '<leader>sg', [[<cmd>lua require('telescope.builtin').git_stash()<CR>]])
+vim.keymap.set('n', '<leader>gs', [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
 vim.keymap.set('n', '<leader>m', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
 vim.keymap.set('n', '<leader>r' , [[<cmd>lua require('telescope.builtin').registers()<CR>]])
 vim.keymap.set('n', '<leader>c' , [[<cmd>lua require('telescope.builtin').commands()<CR>]])
