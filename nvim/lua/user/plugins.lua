@@ -27,6 +27,7 @@ require("lazy").setup({
       'DevDec/transmit.nim',
       dir = "/Volumes/T7/transmit.nvim.git/main"
     },
+    {'sindrets/diffview.nvim'},
     -- Commenting support.
     {'tpope/vim-commentary'},
 

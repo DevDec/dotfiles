@@ -6,6 +6,7 @@
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
   "dashboard-nvim": { "branch": "master", "commit": "63df28409d940f9cac0a925df09d3dc369db9841" },
+  "diffview.nvim": { "branch": "main", "commit": "3dc498c9777fe79156f3d32dddd483b8b3dbd95f" },
   "dracula-pro": { "branch": "main", "commit": "14873b38c4b5cf86eb04a46a6a8782eaf177d751" },
   "dracula.nvim": { "branch": "master", "commit": "2f396b6ba988ad4b3961c2e40d1b9ae436b8c26c" },
   "git-worktree.nvim": { "branch": "master", "commit": "ee3e8b4c0ff981df159bac1b4075c3efe07d4f89" },
