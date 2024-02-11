@@ -144,15 +144,6 @@ require("lazy").setup({
         require('user/plugins/lualine')
       end,
     },
-
-    -- Add a dashboard.
-    {
-      'glepnir/dashboard-nvim',
-      config = function()
-        require('user/plugins/dashboard-nvim')
-      end
-    },
-
     -- Git integration.
     {
       'lewis6991/gitsigns.nvim',
@@ -236,15 +227,15 @@ require("lazy").setup({
     },
 
     -- PHP Refactoring Tools
-    {
-      'phpactor/phpactor',
-      ft = 'php',
-      build = 'composer install --no-dev --optimize-autoloader',
-      config = function()
-        vim.keymap.set('n', '<Leader>pm', ':PhpactorContextMenu<CR>')
-        vim.keymap.set('n', '<Leader>pn', ':PhpactorClassNew<CR>')
-      end,
-    },
+    -- {
+    --   'phpactor/phpactor',
+    --   ft = 'php',
+    --   build = 'composer install --no-dev --optimize-autoloader',
+    --   config = function()
+    --     vim.keymap.set('n', '<Leader>pm', ':PhpactorContextMenu<CR>')
+    --     vim.keymap.set('n', '<Leader>pn', ':PhpactorClassNew<CR>')
+    --   end,
+    -- },
 
     -- Project Configuration.
     {
