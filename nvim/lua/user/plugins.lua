@@ -1,24 +1,77 @@
 require("lazy").setup({
+    -- {
+    --   'maxmx03/dracula.nvim',
+    --   config = function()
+    --     local dracula = require 'dracula'
+    --     local draculapro = require 'draculapro'
+
+    --     draculapro.setup({
+    --         theme = 'morbius'
+    --       })
+
+    --     dracula.setup {
+    --       dracula_pro = draculapro,
+    --       colors = draculapro.colors
+    --     }
+
+    --     vim.cmd.colorscheme 'dracula'
+    --   end,
+    --   dependencies = {
+    --     'DevDec/dracula-pro',
+    --   },
+    -- },
     {
-      'maxmx03/dracula.nvim',
+      "catppuccin/nvim", name = "catppuccin",
+      priority = 1000,
       config = function()
-        local dracula = require 'dracula'
-        local draculapro = require 'draculapro'
-
-        draculapro.setup({
-            theme = 'morbius'
+        require("catppuccin").setup({
+            flavour = "mocha", -- latte, frappe, macchiato, mocha
+            background = { -- :h background
+              light = "latte",
+              dark = "mocha",
+            },
+            transparent_background = false, -- disables setting the background color.
+            show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+            term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+            dim_inactive = {
+              enabled = false, -- dims the background color of inactive window
+              shade = "dark",
+              percentage = 0.15, -- percentage of the shade to apply to the inactive window
+            },
+            no_italic = false, -- Force no italic
+            no_bold = false, -- Force no bold
+            no_underline = false, -- Force no underline
+            styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+              comments = { "italic" }, -- Change the style of comments
+              conditionals = { "italic" },
+              loops = {},
+              functions = {},
+              keywords = {},
+              strings = {},
+              variables = {},
+              numbers = {},
+              booleans = {},
+              properties = {},
+              types = {},
+              operators = {},
+            },
+            color_overrides = {},
+            custom_highlights = {},
+            integrations = {
+              cmp = true,
+              gitsigns = true,
+              nvimtree = true,
+              treesitter = true,
+              notify = false,
+              mini = {
+                enabled = true,
+                indentscope_color = "",
+              },
+              -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+            },
           })
-
-        dracula.setup {
-          dracula_pro = draculapro,
-          colors = draculapro.colors
-        }
-
-        vim.cmd.colorscheme 'dracula'
-      end,
-      dependencies = {
-        'DevDec/dracula-pro',
-      },
+          vim.cmd.colorscheme "catppuccin"
+      end
     },
     {'DevDec/git-worktree.nvim'},
     {'easymotion/vim-easymotion'},
@@ -47,7 +100,7 @@ require("lazy").setup({
     {'tpope/vim-repeat'},
 
     -- Add more languages.
-    {'sheerun/vim-polyglot'},
+    -- {'sheerun/vim-polyglot'},
 
     -- Navigate seamlessly between Vim windows and Tmux panes.
     {'christoomey/vim-tmux-navigator'},
@@ -66,7 +119,7 @@ require("lazy").setup({
       'whatyouhide/vim-textobj-xmlattr',
       dependencies = 'kana/vim-textobj-user',
     },
-
+    
     -- Automatically set the working directory to the project root.
     {
       'airblade/vim-rooter',
@@ -166,27 +219,39 @@ require("lazy").setup({
         vim.keymap.set('n', 'gb', ':Gitsigns blame_line<CR>')
       end,
     },
-
+    {
+      'linrongbin16/lsp-progress.nvim',
+      config = function()
+        require('lsp-progress').setup()
+        -- listen lsp-progress event and refresh lualine
+        vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+        vim.api.nvim_create_autocmd("User", {
+          group = "lualine_augroup",
+          pattern = "LspProgressStatusUpdated",
+          callback = require("lualine").refresh,
+        })
+      end
+    },
     -- Git commands.
     {
       'tpope/vim-fugitive',
       dependencies = 'tpope/vim-rhubarb',
     },
+    -- --- Floating terminal.
 
-    --- Floating terminal.
-    {
-      'voldikss/vim-floaterm',
-      config = function()
-        vim.g.floaterm_width = 0.8
-        vim.g.floaterm_height = 0.8
-        vim.keymap.set('n', '<Tab>t', ':FloatermToggle<CR>')
-        vim.keymap.set('t', '<Tab>t', '<C-\\><C-n>:FloatermToggle<CR>')
-        vim.cmd([[
-          highlight link Floaterm CursorLine
-      highlight link FloatermBorder CursorLineBg
-    ]])
-      end
-    },
+    -- {
+    --   'voldikss/vim-floaterm',
+    --   config = function()
+    --     vim.g.floaterm_width = 0.8
+    --     vim.g.floaterm_height = 0.8
+    --     vim.keymap.set('n', '<Tab>t', ':FloatermToggle<CR>')
+    --     vim.keymap.set('t', '<Tab>t', '<C-\\><C-n>:FloatermToggle<CR>')
+    --     vim.cmd([[
+    --       highlight link Floaterm CursorLine
+    --   highlight link FloatermBorder CursorLineBg
+    -- ]])
+    --   end
+    -- },
 
     -- Improved syntax highlighting
     {
@@ -200,9 +265,11 @@ require("lazy").setup({
       },
       config = function()
         require('user/plugins/treesitter')
-      end,
+        vim.opt.foldenable = false
+        vim.opt.foldmethod = "expr"
+        vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+       end,
     },
-
     -- Language Server Protocol.
     {
       'neovim/nvim-lspconfig',
@@ -234,18 +301,17 @@ require("lazy").setup({
         require('user/plugins/cmp')
       end,
     },
-
-    -- PHP Refactoring Tools
     {
       'phpactor/phpactor',
+      version = '2022.11.12',
       ft = 'php',
       build = 'composer install --no-dev --optimize-autoloader',
       config = function()
-        vim.keymap.set('n', '<Leader>pm', ':PhpactorContextMenu<CR>')
-        vim.keymap.set('n', '<Leader>pn', ':PhpactorClassNew<CR>')
+        vim.keymap.set('n', '<Leader>cm', ':PhpactorMoveFile<CR>')
+        vim.keymap.set('n', '<Leader>com', ':PhpactorMoveFile<CR>')
+        vim.keymap.set('n', '<Leader>cn', ':PhpactorClassNew<CR>')
       end,
     },
-
     -- Project Configuration.
     {
       'tpope/vim-projectionist',
@@ -267,7 +333,7 @@ require("lazy").setup({
       'ThePrimeagen/harpoon',
       config = function()
         require('harpoon').setup({
-            tabline = true
+            tabline = false
           })
         vim.keymap.set('n', '<Leader>ho', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
         vim.keymap.set('n', '<Leader>ha', ':lua require("harpoon.mark").add_file()<CR>')
