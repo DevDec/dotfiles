@@ -11,39 +11,68 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 
 local lspconfig = require('lspconfig')
 
+local intelephenseCapabilities = vim.lsp.protocol.make_client_capabilities()
+
+for key, value in pairs(intelephenseCapabilities.textDocument) do
+  if (key ~= "documentSymbol") then
+    intelephenseCapabilities.textDocument[key] = false
+  end
+end
+
+local disabled_lsp_capabilties = {
+  intelephense = {
+    'rename',
+    'definition',
+    'declaration',
+    'diagnostic',
+    'codeAction',
+    'documentHighlight',
+    'formatting',
+    'hover',
+    'implementation',
+    'inlayHint',
+    'publishDiagnostics',
+    'rangeFormatting',
+    'signatureHelp',
+    'typeDefinition',
+    'references',
+    'window',
+    'workspace',
+  },
+  phpactor = {
+    'documentSymbol'
+  }
+}
+
+local on_attach = function (client, buffer)
+  if client == "phpactor" then
+    local ns = vim.lsp.diagnostic.get_namespace(client.id)
+    vim.documentSymbol.disable(nil, ns)
+  end
+
+  if disabled_lsp_capabilties[client.name] ~= nil then
+    for key, value in pairs(disabled_lsp_capabilties[client.name]) do
+      if client.server_capabilities[value .. "Provider"] ~= nil then
+        client.server_capabilities[value .. "Provider"] = nil
+      end
+    end
+  end
+end
+
+
 -- PHP
 lspconfig.intelephense.setup({
-  capabilities = capabilities,
+  capabilities = intelephenseCapabilities,
+  on_attach = on_attach
 })
-
-lspconfig.intelephense.handlers = {
-    ['textDocument/documentSymbol'] = nil,
-    ['textDocument/rename'] = nil,
-    ['textDocument/definition'] = nil,
-    ['textDocument/declaration'] = nil,
-    ['textDocument/diagnostic'] = nil,
-    ['textDocument/codeAction'] = nil,
-    ['textDocument/documentHighlight'] = nil,
-    ['textDocument/formatting'] = nil,
-    ['textDocument/hover'] = nil,
-    ['textDocument/implementation'] = nil,
-    ['textDocument/inlayHint'] = nil,
-    ['textDocument/publishDiagnostics'] = nil,
-    ['textDocument/rangeFormatting'] = nil,
-    ['textDocument/signatureHelp'] = nil,
-    ['textDocument/typeDefinition'] = nil,
-}
 
 lspconfig.phpactor.setup({
   capabilities = capabilities,
   init_options = {
     ["symfony.enabled"] = true,
   },
- })
-
-lspconfig.phpactor.handlers = {
-  ['textDocument/references'] = nil,
-}
+  on_attach = on_attach,
+})
 
 -- XML
 lspconfig.lemminx.setup({ capabilities = capabilities })
@@ -125,7 +154,7 @@ vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', '<leader>K', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-vim.keymap.set('n', '<Leader>dd', ':Telescope diagnostics<CR>')
+vim.keymap.set('n', '<Leader>dd', ':Telescope diagnostics bufnr=0<CR>')
 
 -- Commands
 -- vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})
