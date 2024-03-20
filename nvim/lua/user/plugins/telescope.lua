@@ -131,9 +131,6 @@ vim.keymap.set('n', '<leader>gs', [[<cmd>lua require('telescope.builtin').git_st
 vim.keymap.set('n', '<leader>m', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
 vim.keymap.set('n', '<leader>r' , [[<cmd>lua require('telescope.builtin').registers()<CR>]])
 vim.keymap.set('n', '<leader>c' , [[<cmd>lua require('telescope.builtin').commands()<CR>]])
-vim.keymap.set("n", "<Tab>h", function()
-     return ":lua require('harpoon.ui').nav_file(" .. vim.v.count .. ")<CR>" end, {expr = true})
-
 
 vim.keymap.set('n', '<leader>wo', [[<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>]])
 vim.keymap.set('n', '<leader>wc', [[<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>]])

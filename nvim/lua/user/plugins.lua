@@ -197,15 +197,6 @@ require("lazy").setup({
         require('user/plugins/lualine')
       end,
     },
-
-    -- Add a dashboard.
-    {
-      'glepnir/dashboard-nvim',
-      config = function()
-        require('user/plugins/dashboard-nvim')
-      end
-    },
-
     -- Git integration.
     {
       'lewis6991/gitsigns.nvim',
@@ -328,9 +319,10 @@ require("lazy").setup({
         require('user/plugins/vim-test')
       end,
     },
-
     {
-      'ThePrimeagen/harpoon',
+      "ThePrimeagen/harpoon",
+      branch = "harpoon2",
+      dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
         require('harpoon').setup({
             tabline = false
@@ -339,6 +331,14 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>ha', ':lua require("harpoon.mark").add_file()<CR>')
       end,
     },
+    -- {
+    --   'ThePrimeagen/harpoon',
+    --   config = function()
+    --     require('harpoon').setup()
+    --     vim.keymap.set('n', '<Leader>ha', ':lua require("harpoon.mark").add_file()<CR>')
+    --     vim.keymap.set('n', '<Leader>ho', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
+    --   end,
+    -- },
 
     {
       "kdheepak/lazygit.nvim",
