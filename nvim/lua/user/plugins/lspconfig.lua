@@ -67,7 +67,6 @@ local on_attach = function (client, buffer)
   end
 end
 
-
 -- PHP
 lspconfig.intelephense.setup({
   capabilities = intelephenseCapabilities,
@@ -174,9 +173,6 @@ vim.keymap.set('n', '<leader>K', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 vim.keymap.set('n', '<Leader>dd', ':Telescope diagnostics bufnr=0<CR>')
-
--- Commands
--- vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})
 
 -- Diagnostic configuration
 vim.diagnostic.config({

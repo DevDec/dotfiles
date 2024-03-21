@@ -1,5 +1,5 @@
 local lga_actions = require("telescope-live-grep-args.actions")
-local telescope_custom_extensions = require('user/plugins/telescope-custom-extensions')
+local telescope_custom_extensions = require('user/plugins/telescope/telescope-custom-extensions')
 
 require('telescope').setup({
     extensions= {
@@ -80,8 +80,7 @@ vim.keymap.set('n', '<leader>s', function()
   end
   vim.cmd('Telescope lsp_document_symbols')
 end)
--- vim.keymap.set('n', '<leader>s', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
--- vim.keymap.set('n', '<leader>s', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
+
 vim.keymap.set('n', '<leader>sg', [[<cmd>lua require('telescope.builtin').git_stash()<CR>]])
 vim.keymap.set('n', '<leader>gs', [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
 vim.keymap.set('n', '<leader>m', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
@@ -90,5 +89,3 @@ vim.keymap.set('n', '<leader>c' , [[<cmd>lua require('telescope.builtin').comman
 
 vim.keymap.set('n', '<leader>wo', [[<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>]])
 vim.keymap.set('n', '<leader>wc', [[<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>]])
-
-   

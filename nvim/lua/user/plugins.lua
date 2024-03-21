@@ -181,7 +181,7 @@ require("lazy").setup({
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       },
       config = function()
-        require('user/plugins/telescope')
+        require('user/plugins/telescope/telescope')
       end,
     },
 
