@@ -77,6 +77,7 @@ require("lazy").setup({
           vim.cmd.colorscheme "catppuccin"
       end
     },
+    -- Fork of the original Primeagen plugin (Fixes bug)
     {'DevDec/git-worktree.nvim'},
     {'easymotion/vim-easymotion'},
     {
@@ -315,7 +316,6 @@ require("lazy").setup({
         require('user/plugins/projectionist')
       end,
     },
-
     -- Testing helper
     {
       'vim-test/vim-test',
@@ -335,15 +335,7 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>ha', ':lua require("harpoon.mark").add_file()<CR>')
       end,
     },
-    -- {
-    --   'ThePrimeagen/harpoon',
-    --   config = function()
-    --     require('harpoon').setup()
-    --     vim.keymap.set('n', '<Leader>ha', ':lua require("harpoon.mark").add_file()<CR>')
-    --     vim.keymap.set('n', '<Leader>ho', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
-    --   end,
-    -- },
-
+    -- LazyGit integration.
     {
       "kdheepak/lazygit.nvim",
       -- optional for floating window border decoration
@@ -354,10 +346,12 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>l', ':LazyGit<CR>')
       end,
     },
+    -- fzf native for telescope
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
     },
+    -- AI Assisted writing.
     {
       "zbirenbaum/copilot.lua",
       cmd = "Copilot",
@@ -371,6 +365,7 @@ require("lazy").setup({
         })
       end,
     },
+    -- Note taking.
     {
       "epwalsh/obsidian.nvim",
       version = "*",  -- recommended, use latest release instead of latest commit
@@ -396,5 +391,6 @@ require("lazy").setup({
         },
       },
     },
+    -- Practice Vim commands.
     {'ThePrimeagen/vim-be-good'}
   })
