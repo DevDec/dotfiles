@@ -1,4 +1,6 @@
 local action_state = require "telescope.actions.state";
+local telescope = require('telescope.builtin')
+local telescope_state = require('telescope.state')
 local utils = require "telescope.utils"
 
 local git = {}
@@ -56,6 +58,26 @@ function git.drop_stash(prompt_bufnr)
   end)
 end
 
+local function middleware(func, title, args)
+  local cached_pickers = telescope_state.get_global_key "cached_pickers" or {}
+  local files_picker = nil
+
+  for _, value in pairs(cached_pickers) do
+    if value.prompt_title == title then
+      files_picker = value
+      break
+    end
+  end
+
+  if files_picker then
+     telescope.resume({ picker = files_picker })
+     return
+   else
+     func(args)
+   end
+ end
+
 return {
-  git
+  git = git,
+  middleware = middleware
 }

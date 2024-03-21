@@ -1,5 +1,5 @@
 local lga_actions = require("telescope-live-grep-args.actions")
-local telescope_custom_extensions = require('telescope-custom-extensions')
+local telescope_custom_extensions = require('user/plugins/telescope-custom-extensions')
 
 require('telescope').setup({
     extensions= {
@@ -62,34 +62,13 @@ require('telescope').load_extension('live_grep_args')
 require('telescope').load_extension('harpoon')
 require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('fzf')
-local telescope_state = require('telescope.state')
-local telescope = require('telescope.builtin')
-
-local function telescope_middleware(func, title, args)
-  local cached_pickers = telescope_state.get_global_key "cached_pickers" or {}
-  local files_picker = nil
-
-  for _, value in pairs(cached_pickers) do
-    if value.prompt_title == title then
-      files_picker = value
-      break
-    end
-  end
-
-  if files_picker then
-     telescope.resume({ picker = files_picker })
-     return
-   else
-     func(args)
-   end
- end
 
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>f', function() telescope_middleware(builtin.find_files, 'Find Files') end)
-vim.keymap.set('n', '<leader>F', function() telescope_middleware(builtin.find_files, 'All Files', { no_ignore = true, prompt_title = 'All Files' }) end)
+vim.keymap.set('n', '<leader>f', function() telescope_custom_extensions.middleware(builtin.find_files, 'Find Files') end)
+vim.keymap.set('n', '<leader>F', function() telescope_custom_extensions.middleware(builtin.find_files, 'All Files', { no_ignore = true, prompt_title = 'All Files' }) end)
 vim.keymap.set('n', '<leader>b', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
-vim.keymap.set('n', '<leader>g', function() telescope_middleware(require('telescope').extensions.live_grep_args.live_grep_args, 'Live Grep (Args)', {noremap=true}) end)
+vim.keymap.set('n', '<leader>g', function() telescope_custom_extensions.middleware(require('telescope').extensions.live_grep_args.live_grep_args, 'Live Grep (Args)', {noremap=true}) end)
 vim.keymap.set('n', '<leader>o', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 vim.keymap.set('n', '<leader>s', function()
   local clients = vim.lsp.buf_get_clients()
