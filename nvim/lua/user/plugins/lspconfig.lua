@@ -1,3 +1,11 @@
+require("neodev").setup({
+  override = function(_, library)
+    library.enabled = true
+    library.plugins = true
+  end,
+  pathStrict = true,
+})
+
 -- Setup Mason to automatically install LSP servers
 require('mason').setup()
 

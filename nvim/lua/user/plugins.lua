@@ -1,4 +1,8 @@
 require("lazy").setup({
+    {
+      "folke/neodev.nvim",
+      opts = {},
+    },
     -- {
     --   'maxmx03/dracula.nvim',
     --   config = function()
