@@ -50,3 +50,11 @@ vim.keymap.set('i', '<A-k>', '<Esc>:move .-2<CR>==gi')
 vim.keymap.set('n', '<A-k>', ':move .-2<CR>==')
 vim.keymap.set('v', '<A-j>', ":move '>+1<CR>gv=gv")
 vim.keymap.set('v', '<A-k>', ":move '<-2<CR>gv=gv")
+
+-- Quickfix list navigation
+vim.keymap.set('n', '<leader>co', ':copen<CR>')
+vim.keymap.set('n', '<leader>cd', ':cclose<CR>')
+vim.keymap.set('n', '<leader>cn', ':cnext<CR>')
+vim.keymap.set('n', '<leader>cp', ':cprev<CR>')
+
+
