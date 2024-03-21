@@ -218,7 +218,7 @@ require("lazy").setup({
     {
       'linrongbin16/lsp-progress.nvim',
       config = function()
-        require('lsp-progress').setup()
+        require('lsp-progress').setup({})
         -- listen lsp-progress event and refresh lualine
         vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
         vim.api.nvim_create_autocmd("User", {
@@ -328,11 +328,10 @@ require("lazy").setup({
       branch = "harpoon2",
       dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
-        require('harpoon').setup({
-            tabline = false
-          })
-        vim.keymap.set('n', '<Leader>ho', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
-        vim.keymap.set('n', '<Leader>ha', ':lua require("harpoon.mark").add_file()<CR>')
+        local harpoon = require("harpoon")
+        harpoon.setup(harpoon, {})
+        vim.keymap.set('n', '<Leader>ho', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+        vim.keymap.set('n', '<Leader>ha', function() harpoon:list():append() end)
       end,
     },
     -- LazyGit integration.

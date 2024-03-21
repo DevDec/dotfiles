@@ -155,9 +155,20 @@ vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 vim.keymap.set('n', '<leader>t', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-vim.keymap.set('n', 'gi', ':Telescope lsp_implementations show_line=false<CR>') 
-vim.keymap.set('n', 'gr', ':Telescope lsp_references show_line=false<CR>')
-vim.keymap.set('n', 'gci', ':Telescope lsp_incoming_calls<CR>') 
+vim.keymap.set('n', 'gi', ':Telescope lsp_implementations show_line=false<CR>')
+vim.keymap.set('n', 'gr', function()
+  local telescope = require('telescope')
+  local clients = vim.lsp.buf_get_clients()
+  for key, value in pairs(clients) do
+    if value.name == 'lua_ls' then
+      vim.lsp.buf.references()
+      return
+    end
+  end
+  vim.cmd('Telescope lsp_references show_line=false')
+end
+)
+vim.keymap.set('n', 'gci', ':Telescope lsp_incoming_calls<CR>')
 vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', '<leader>K', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
