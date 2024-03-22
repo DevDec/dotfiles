@@ -6,19 +6,7 @@ require("lazy").setup({
     -- {
     --   'maxmx03/dracula.nvim',
     --   config = function()
-    --     local dracula = require 'dracula'
-    --     local draculapro = require 'draculapro'
-
-    --     draculapro.setup({
-    --         theme = 'morbius'
-    --       })
-
-    --     dracula.setup {
-    --       dracula_pro = draculapro,
-    --       colors = draculapro.colors
-    --     }
-
-    --     vim.cmd.colorscheme 'dracula'
+    --   require('user/plugins/themes/dracula')
     --   end,
     --   dependencies = {
     --     'DevDec/dracula-pro',
@@ -28,53 +16,7 @@ require("lazy").setup({
       "catppuccin/nvim", name = "catppuccin",
       priority = 1000,
       config = function()
-        require("catppuccin").setup({
-            flavour = "mocha", -- latte, frappe, macchiato, mocha
-            background = { -- :h background
-              light = "latte",
-              dark = "mocha",
-            },
-            transparent_background = false, -- disables setting the background color.
-            show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-            term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
-            dim_inactive = {
-              enabled = false, -- dims the background color of inactive window
-              shade = "dark",
-              percentage = 0.15, -- percentage of the shade to apply to the inactive window
-            },
-            no_italic = false, -- Force no italic
-            no_bold = false, -- Force no bold
-            no_underline = false, -- Force no underline
-            styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-              comments = { "italic" }, -- Change the style of comments
-              conditionals = { "italic" },
-              loops = {},
-              functions = {},
-              keywords = {},
-              strings = {},
-              variables = {},
-              numbers = {},
-              booleans = {},
-              properties = {},
-              types = {},
-              operators = {},
-            },
-            color_overrides = {},
-            custom_highlights = {},
-            integrations = {
-              cmp = true,
-              gitsigns = true,
-              nvimtree = true,
-              treesitter = true,
-              notify = false,
-              mini = {
-                enabled = true,
-                indentscope_color = "",
-              },
-              -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-            },
-          })
-          vim.cmd.colorscheme "catppuccin"
+        require('user/plugins/themes/catppuccin')
       end
     },
     -- Fork of the original Primeagen plugin (Fixes bug)
@@ -136,7 +78,6 @@ require("lazy").setup({
         vim.cmd('Rooter')
       end,
     },
-
     -- Automatically add closing brackets, quotes, etc.
     {
       'windwp/nvim-autopairs',
@@ -144,25 +85,13 @@ require("lazy").setup({
         require('nvim-autopairs').setup()
       end,
     },
-
-    -- -- Add smooth scrolling to avoid jarring jumps
-    -- {
-    --   'karb94/neoscroll.nvim',
-    --   config = function()
-    --     require('neoscroll').setup()
-    --   end,
-    -- },
-
     -- Split arrays and methods onto multiple lines, or join them back up.
     {
       'AndrewRadev/splitjoin.vim',
       config = function()
-        vim.g.splitjoin_html_attributes_bracket_on_new_line = 1
-        vim.g.splitjoin_trailing_comma = 1
-        vim.g.splitjoin_php_method_chain_full = 1
+        require('user/plugins/utils/splitjoin')
       end,
     },
-
     -- Automatically fix indentation when pasting code.
     {
       'sickill/vim-pasta',
@@ -170,7 +99,6 @@ require("lazy").setup({
         vim.g.pasta_disabled_filetypes = { 'fugitive' }
       end,
     },
-
     -- Fuzzy finder
     {
       'nvim-telescope/telescope.nvim',
@@ -181,7 +109,7 @@ require("lazy").setup({
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       },
       config = function()
-        require('user/plugins/telescope/telescope')
+        require('user/plugins/navigation/telescope/telescope')
       end,
     },
 
@@ -190,7 +118,7 @@ require("lazy").setup({
       'kyazdani42/nvim-tree.lua',
       dependencies = 'kyazdani42/nvim-web-devicons',
       config = function()
-        require('user/plugins/nvim-tree')
+        require('user/plugins/navigation/nvim-tree')
       end,
     },
 
@@ -199,33 +127,20 @@ require("lazy").setup({
       'nvim-lualine/lualine.nvim',
       dependencies = 'kyazdani42/nvim-web-devicons',
       config = function()
-        require('user/plugins/lualine')
+        require('user/plugins/ui/lualine')
       end,
     },
     -- Git integration.
     {
       'lewis6991/gitsigns.nvim',
       config = function()
-        require('gitsigns').setup({current_line_blame = true})
-        vim.keymap.set('n', ']h', ':Gitsigns next_hunk<CR>')
-        vim.keymap.set('n', '[h', ':Gitsigns prev_hunk<CR>')
-        vim.keymap.set('n', 'gs', ':Gitsigns stage_hunk<CR>')
-        vim.keymap.set('n', 'gS', ':Gitsigns undo_stage_hunk<CR>')
-        vim.keymap.set('n', 'gp', ':Gitsigns preview_hunk<CR>')
-        vim.keymap.set('n', 'gb', ':Gitsigns blame_line<CR>')
+        require('user/plugins/utils/gitsigns')
       end,
     },
     {
       'linrongbin16/lsp-progress.nvim',
       config = function()
-        require('lsp-progress').setup({})
-        -- listen lsp-progress event and refresh lualine
-        vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
-        vim.api.nvim_create_autocmd("User", {
-          group = "lualine_augroup",
-          pattern = "LspProgressStatusUpdated",
-          callback = require("lualine").refresh,
-        })
+        require('user/plugins/navigation/lsp/lsp-progress')
       end
     },
     -- Git commands.
@@ -233,22 +148,6 @@ require("lazy").setup({
       'tpope/vim-fugitive',
       dependencies = 'tpope/vim-rhubarb',
     },
-    -- --- Floating terminal.
-
-    -- {
-    --   'voldikss/vim-floaterm',
-    --   config = function()
-    --     vim.g.floaterm_width = 0.8
-    --     vim.g.floaterm_height = 0.8
-    --     vim.keymap.set('n', '<Tab>t', ':FloatermToggle<CR>')
-    --     vim.keymap.set('t', '<Tab>t', '<C-\\><C-n>:FloatermToggle<CR>')
-    --     vim.cmd([[
-    --       highlight link Floaterm CursorLine
-    --   highlight link FloatermBorder CursorLineBg
-    -- ]])
-    --   end
-    -- },
-
     -- Improved syntax highlighting
     {
       'nvim-treesitter/nvim-treesitter',
@@ -260,10 +159,7 @@ require("lazy").setup({
         'nvim-treesitter/nvim-treesitter-textobjects',
       },
       config = function()
-        require('user/plugins/treesitter')
-        vim.opt.foldenable = false
-        vim.opt.foldmethod = "expr"
-        vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+        require('user/plugins/navigation/lsp/treesitter')
        end,
     },
     -- Language Server Protocol.
@@ -277,7 +173,7 @@ require("lazy").setup({
         'jayp0521/mason-null-ls.nvim',
       },
       config = function()
-        require('user/plugins/lspconfig')
+        require('user/plugins/navigation/lsp/lspconfig')
       end,
     },
 
@@ -294,7 +190,7 @@ require("lazy").setup({
         'onsails/lspkind-nvim',
       },
       config = function()
-        require('user/plugins/cmp')
+        require('user/plugins/utils/cmp')
       end,
     },
     {
@@ -303,9 +199,7 @@ require("lazy").setup({
       ft = 'php',
       build = 'composer install --no-dev --optimize-autoloader',
       config = function()
-        vim.keymap.set('n', '<Leader>cm', ':PhpactorMoveFile<CR>')
-        vim.keymap.set('n', '<Leader>com', ':PhpactorMoveFile<CR>')
-        vim.keymap.set('n', '<Leader>cn', ':PhpactorClassNew<CR>')
+        require('user/plugins/navigation/lsp/phpactor')
       end,
     },
     -- Project Configuration.
@@ -313,14 +207,14 @@ require("lazy").setup({
       'tpope/vim-projectionist',
       dependencies = 'tpope/vim-dispatch',
       config = function()
-        require('user/plugins/projectionist')
+        require('user/plugins/utils/projectionist')
       end,
     },
     -- Testing helper
     {
       'vim-test/vim-test',
       config = function()
-        require('user/plugins/vim-test')
+        require('user/plugins/utils/vim-test')
       end,
     },
     {
@@ -328,10 +222,7 @@ require("lazy").setup({
       branch = "harpoon2",
       dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
-        local harpoon = require("harpoon")
-        harpoon.setup(harpoon, {})
-        vim.keymap.set('n', '<Leader>ho', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-        vim.keymap.set('n', '<Leader>ha', function() harpoon:list():append() end)
+        require("user/plugins/navigation/harpoon")
       end,
     },
     -- LazyGit integration.
@@ -348,20 +239,14 @@ require("lazy").setup({
     -- fzf native for telescope
     {
       'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-    },
+      build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build', },
     -- AI Assisted writing.
     {
       "zbirenbaum/copilot.lua",
       cmd = "Copilot",
       event = "InsertEnter",
       config = function()
-        require("copilot").setup({
-          suggestion = {
-            enabled = true,
-            auto_trigger = true
-          }
-        })
+        require("user/plugins/utils/copilot")
       end,
     },
     -- Note taking.

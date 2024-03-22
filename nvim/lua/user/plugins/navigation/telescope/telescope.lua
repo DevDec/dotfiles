@@ -1,5 +1,5 @@
 local lga_actions = require("telescope-live-grep-args.actions")
-local telescope_custom_extensions = require('user/plugins/telescope/telescope-custom-extensions')
+local telescope_custom_extensions = require('user/plugins/navigation/telescope/telescope-custom-extensions')
 
 require('telescope').setup({
     extensions= {
