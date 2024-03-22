@@ -112,15 +112,22 @@ require("lazy").setup({
         require('user/plugins/navigation/telescope/telescope')
       end,
     },
-
-    -- File tree sidebar
     {
-      'kyazdani42/nvim-tree.lua',
-      dependencies = 'kyazdani42/nvim-web-devicons',
+      'ms-jpq/chadtree',
+      branch = 'chad',
+      build = 'python3 -m chadtree deps',
       config = function()
-        require('user/plugins/navigation/nvim-tree')
+        require('user/plugins/navigation/chadtree')
       end,
     },
+    -- File tree sidebar
+    -- {
+    --   'kyazdani42/nvim-tree.lua',
+    --   dependencies = 'kyazdani42/nvim-web-devicons',
+    --   config = function()
+    --     require('user/plugins/navigation/nvim-tree')
+    --   end,
+    -- },
 
     -- A Status line.
     {
