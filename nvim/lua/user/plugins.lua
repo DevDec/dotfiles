@@ -13,12 +13,18 @@ require("lazy").setup({
     --   },
     -- },
     {
-      "catppuccin/nvim", name = "catppuccin",
-      priority = 1000,
+      'navarasu/onedark.nvim',
       config = function()
-        require('user/plugins/themes/catppuccin')
-      end
+        require('user/plugins/themes/onedark')
+      end,
     },
+    -- {
+    --   "catppuccin/nvim", name = "catppuccin",
+    --   priority = 1000,
+    --   config = function()
+    --     require('user/plugins/themes/catppuccin')
+    --   end
+    -- },
     -- Fork of the original Primeagen plugin (Fixes bug)
     {'DevDec/git-worktree.nvim'},
     {'easymotion/vim-easymotion'},
@@ -28,12 +34,6 @@ require("lazy").setup({
       dir = "/Volumes/T7/transmit.nvim.git/main"
     },
     {'sindrets/diffview.nvim'},
-    -- Commenting support.
-    {'tpope/vim-commentary'},
-
-    -- Add, change, and delete surrounding text.
-    {'tpope/vim-surround'},
-
     -- Useful commands like :Rename and :SudoWrite.
     {'tpope/vim-eunuch'},
 
@@ -45,9 +45,6 @@ require("lazy").setup({
 
     -- Allow plugins to enable repeating of commands.
     {'tpope/vim-repeat'},
-
-    -- Add more languages.
-    -- {'sheerun/vim-polyglot'},
 
     -- Navigate seamlessly between Vim windows and Tmux panes.
     {'christoomey/vim-tmux-navigator'},
@@ -78,20 +75,6 @@ require("lazy").setup({
         vim.cmd('Rooter')
       end,
     },
-    -- Automatically add closing brackets, quotes, etc.
-    {
-      'windwp/nvim-autopairs',
-      config = function()
-        require('nvim-autopairs').setup()
-      end,
-    },
-    -- Split arrays and methods onto multiple lines, or join them back up.
-    {
-      'AndrewRadev/splitjoin.vim',
-      config = function()
-        require('user/plugins/utils/splitjoin')
-      end,
-    },
     -- Automatically fix indentation when pasting code.
     {
       'sickill/vim-pasta',
@@ -120,15 +103,6 @@ require("lazy").setup({
         require('user/plugins/navigation/chadtree')
       end,
     },
-    -- File tree sidebar
-    -- {
-    --   'kyazdani42/nvim-tree.lua',
-    --   dependencies = 'kyazdani42/nvim-web-devicons',
-    --   config = function()
-    --     require('user/plugins/navigation/nvim-tree')
-    --   end,
-    -- },
-
     -- A Status line.
     {
       'nvim-lualine/lualine.nvim',
@@ -183,7 +157,6 @@ require("lazy").setup({
         require('user/plugins/navigation/lsp/lspconfig')
       end,
     },
-
     -- Completion
     {
       'hrsh7th/nvim-cmp',
@@ -283,5 +256,65 @@ require("lazy").setup({
       },
     },
     -- Practice Vim commands.
-    {'ThePrimeagen/vim-be-good'}
+    {'ThePrimeagen/vim-be-good'},
+    {
+      'echasnovski/mini.indentscope', version = '*',
+      config = function()
+        require('mini.indentscope').setup()
+      end
+    },
+    {
+      'echasnovski/mini.cursorword', version = '*',
+      config = function()
+        require('mini.cursorword').setup()
+      end
+    },
+    {
+      'echasnovski/mini.surround',
+      version = '*',
+      config = function()
+        require('mini.surround').setup()
+      end,
+    },
+    {
+      'echasnovski/mini.ai', version = '*',
+      config = function()
+        require('mini.ai').setup()
+      end
+    },
+    {
+      'echasnovski/mini.splitjoin',
+      version = '*',
+      config = function()
+        require('user/plugins/utils/mini/splitjoin')
+      end
+    },
+    {
+      'echasnovski/mini.comment',
+      version = '*',
+      config = function()
+        require('mini.comment').setup()
+      end
+    },
+    {
+      'echasnovski/mini.pairs',
+      version = '*',
+      config = function()
+        require('mini.pairs').setup()
+      end
+    },
+    {
+      'echasnovski/mini.move',
+      version = '*',
+      config = function()
+        require('mini.move').setup()
+      end
+    },
+    {
+      'echasnovski/mini.operators',
+      version = '*',
+      config = function()
+        require('user/plugins/utils/mini/operators')
+      end
+    },
   })
