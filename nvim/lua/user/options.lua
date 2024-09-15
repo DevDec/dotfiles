@@ -1,10 +1,7 @@
-vim.opt.expandtab = false
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
-vim.opt.clipboard='unnamedplus'
-
-vim.opt.smartindent = true
+-- vim.opt.clipboard='unnamedplus'
 
 vim.opt.wrap = false
 
@@ -41,4 +38,8 @@ vim.opt.undofile = true
 vim.opt.backup = true
 vim.opt.backupdir:remove('.')
 
-vim.opt.signcolumn = 'yes:2'
+vim.opt.signcolumn = 'yes:1'
+vim.opt.conceallevel = 2
+vim.opt.belloff = 'all'
+vim.opt.swapfile = false
+vim.opt.cmdheight = 0

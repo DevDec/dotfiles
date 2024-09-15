@@ -4,7 +4,7 @@ bold_font JetBrainsMonoNL Nerd Font Mono Bold
 italic_font JetBrainsMonoNL Nerd Font Mono Bold
 bold_italic_font JetBrainsMonoNL Nerd Font Mono Bold
 
-font_size 16
+font_size 13
 adjust_line_height 175%
 
 cursor_blink_interval 0

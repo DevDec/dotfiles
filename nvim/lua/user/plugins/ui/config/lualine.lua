@@ -5,6 +5,7 @@ require('lualine').setup({
     section_separators = '',
     component_separators = '',
     globalstatus = true,
+	-- theme = require('user/plugins/ui/config/lualinetheme').theme(),
     theme = {
       normal = {
         a = 'StatusLine',
@@ -25,8 +26,14 @@ require('lualine').setup({
       -- separator,
     },
     lualine_c = {
-      'filename',
-      require('lsp-progress').progress,
+	'filename'
+	  -- function()
+	  --  -- vim.print(require('lsp-progress').progress())
+	  --  return require('lsp-progress').progress()
+	  -- end,
+    },
+    lualine_d = {
+      'Transmit Server: ' .. require('transmit').get_current_server()
     },
     lualine_x = {
       'filetype',
@@ -42,3 +49,13 @@ require('lualine').setup({
     },
   },
 })
+
+-- -- listen lsp-progress event and refresh lualine
+-- vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+-- vim.api.nvim_create_autocmd("User", {
+--   group = "lualine_augroup",
+--   pattern = "LspProgressStatusUpdated",
+--   callback = function() 
+-- 	  require("lualine").refresh
+--   end,
+-- })

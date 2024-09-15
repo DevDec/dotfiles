@@ -4,6 +4,15 @@ DOTFILES=$(cd $(dirname "{BASH_SOURCE[0]"}) && pwd)
 rm -rf $HOME/.wezterm.lua
 ln -s $DOTFILES/wezterm/.wezterm.lua $HOME/.wezterm.lua
 
+rm -rf $HOME/.config/wezterm/keybindings.lua
+ln -s $DOTFILES/wezterm/keybindings.lua $HOME/.config/wezterm/keybindings.lua
+
+rm -rf $HOME/.config/wezterm/config-utility.lua
+ln -s $DOTFILES/wezterm/config-utility.lua $HOME/.config/wezterm/config-utility.lua
+
+rm -rf $HOME/.config/wezterm/status-bar.lua
+ln -s $DOTFILES/wezterm/status-bar.lua $HOME/.config/wezterm/status-bar.lua
+
 rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty/ $HOME/.config/kitty
 

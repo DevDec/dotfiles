@@ -1,0 +1,1 @@
+lftp sftp://username@host -u username,password -e 'set sftp:connect-program "ssh -i /home/declanb/.ssh/id_rsa"';

@@ -1,2 +1,11 @@
-code_transform.class_new.variants:
-  laravel-test: laravel-test
+language_server_php_cs_fixer.enabled: true
+language_server_php_cs_fixer.bin: /home/declanb/.nix-profile/bin/php-cs-fixer
+language_server_php_cs_fixer.show_diagnostics: true
+language_server_php_cs_fixer.config: /home/declanb/Documents/Projects/phpactor/.php-cs-fixer.dist.php
+language_server_psalm.enabled: true
+language_server_psalm.bin: /usr/bin/psalm
+language_server_psalm.error_level: 1
+language_server.diagnostic_outsource_timeout: 15
+php_code_sniffer.enabled: true
+prophecy.enabled: false
+language_server_phpstan.enabled: true

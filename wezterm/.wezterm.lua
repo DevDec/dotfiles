@@ -1,41 +1,29 @@
--- Pull in the wezterm API
 local wezterm = require 'wezterm'
-
-local mux = wezterm.mux
+local keyBindings = require 'keybindings'
+local configUtility = require 'config-utility'
+local statusBarConfig = require 'status-bar'
 
 wezterm.on("gui-startup", function()
-   local tab, pane, window = mux.spawn_window(cmd or {})
-   window:gui_window():maximize()
-   window:gui_window():toggle_fullscreen()
+	local startupEnv = os.getenv("WEZTERM_STARTUP")
+
+	if startupEnv == "Aim Smarter" then
+		configUtility.createAimWorkspaces()
+	elseif startupEnv == "Standard" or startupEnv == nil or startupEnv == "" then
+		configUtility.createStandardWorkspaces()
+	end
 end)
 
--- This table will hold the configuration.
 local config = {}
 
--- In newer versions of wezterm, use the config_builder which will
--- help provide clearer error messages
 if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
--- This is where you actually apply your config choices
+configUtility.setWindowConfig(config)
 
--- For example, changing the color scheme:
--- config.color_scheme = 'AdventureTime'
+config.leader = { key = 'Space', mods = 'CTRL' }
+config.keys = keyBindings
+configUtility.setTabSwitch(config)
+wezterm.on("update-right-status", statusBarConfig.updateRightStatus)
 
-config.line_height = 1.75
-config.enable_tab_bar = false
-config.enable_scroll_bar = false
-config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 0
-}
-
-config.font_size = 9
-
-config.window_decorations = "NONE"
-
--- and finally, return the configuration to wezterm
 return config

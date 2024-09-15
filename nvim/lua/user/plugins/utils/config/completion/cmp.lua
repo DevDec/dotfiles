@@ -9,6 +9,8 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+-- autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -47,8 +49,17 @@ cmp.setup({
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
+	{ name = "vim-dadbod-completion", priority = 700 }, -- add new source
+	{ name = "lazydev", group_index = 0 }
   },
   experimental = {
     ghost_text = true,
   },
+})
+
+cmp.setup.filetype({ "sql", "mysql", "psql" }, {
+	sources = {
+		{ name = 'vim-dadbod-completion'},
+		{ name = 'buffer'}
+	}
 })

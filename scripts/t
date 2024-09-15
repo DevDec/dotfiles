@@ -4,7 +4,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    items=`find ~/projects/ -maxdepth 2 -mindepth 1 -type d`
+    items=`find ~/projects/ -maxdepth 2 -mindepth 1 \( -type d -o -xtype d \)`
     items+=`echo -e "\n/tmp"`
     selected=`echo "$items" | fzf`
 fi
