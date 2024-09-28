@@ -20,9 +20,10 @@ if wezterm.config_builder then
 end
 
 configUtility.setWindowConfig(config)
-
-config.leader = { key = 'Space', mods = 'CTRL' }
+config.leader = { key = 'a', mods = 'ALT', timeout_milliseconds = 2000  }
 config.keys = keyBindings
+config.front_end = "WebGpu"
+config.webgpu_power_preference = "HighPerformance"
 configUtility.setTabSwitch(config)
 wezterm.on("update-right-status", statusBarConfig.updateRightStatus)
 

@@ -61,9 +61,6 @@ require('telescope').setup({
 -- require('telescope').load_extension('fzf')
 require('telescope').load_extension('live_grep_args')
 require('telescope').load_extension('harpoon')
-require('telescope').load_extension('git_worktree')
-
--- require("telescope").load_extension("g_worktree")
 -- require('telescope').load_extension('fzf')
 
 local builtin = require('telescope.builtin')
@@ -89,15 +86,5 @@ vim.keymap.set("n", "<leader>gc", live_grep_args_shortcuts.grep_word_under_curso
 
 vim.keymap.set('n', '<leader>sg', [[<cmd>lua require('telescope.builtin').git_stash()<CR>]])
 vim.keymap.set('n', '<leader>gs', [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
--- vim.keymap.set('n', '<leader>m', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
 vim.keymap.set('n', '<leader>r' , [[<cmd>lua require('telescope.builtin').registers()<CR>]])
 vim.keymap.set('n', '<leader>c' , [[<cmd>lua require('telescope.builtin').commands()<CR>]])
-
--- switch worktree
--- vim.keymap.set('n', '<leader>wo', [[<cmd>lua require('telescope').extensions.g_worktree.list()<CR>]])
-
--- create worktree
--- require('telescope').extensions.g_worktree.create()
-
-vim.keymap.set('n', '<leader>wo', [[<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>]])
-vim.keymap.set('n', '<leader>wc', [[<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>]])

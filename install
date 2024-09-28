@@ -13,6 +13,12 @@ ln -s $DOTFILES/wezterm/config-utility.lua $HOME/.config/wezterm/config-utility.
 rm -rf $HOME/.config/wezterm/status-bar.lua
 ln -s $DOTFILES/wezterm/status-bar.lua $HOME/.config/wezterm/status-bar.lua
 
+rm -rf $HOME/.config/wezterm/worktrees.lua
+ln -s $DOTFILES/wezterm/worktrees.lua $HOME/.config/wezterm/worktrees.lua
+
+rm -rf $HOME/.config/wezterm/workspaces.lua
+ln -s $DOTFILES/wezterm/workspaces.lua $HOME/.config/wezterm/workspaces.lua
+
 rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty/ $HOME/.config/kitty
 

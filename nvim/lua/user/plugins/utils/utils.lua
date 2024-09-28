@@ -1,4 +1,15 @@
 return {
+	{
+		"nvim-lua/plenary.nvim",
+		config = function()
+			local plenary = require("plenary")
+			local function reload_module(...)
+				plenary.reload.reload_module(...)
+			end
+
+			vim.api.RELOAD = reload_module
+		end,
+	},
 	{import = "user/plugins/utils/config/mini/mini"},
 	{import = "user/plugins/utils/config/completion/completion"},
 	{import = "user/plugins/utils/config/git/git"},
@@ -23,20 +34,39 @@ return {
 	{
 		name = "transmit",
 		'DevDec/transmit.nvim',
-		dir = "~/projects/transmit.nvim.git/main",
+		dir = "~/projects/transmit.nvim.git/main/",
 		dependencies = {
 			{ 'rktjmp/fwatch.nvim' }
 		},
 		config = function()
 			require('user/plugins/utils/config/transmit')
+
+			local function loadTransmit()
+				vim.cmd("lua package.loaded['transmit'] = nil")
+				vim.cmd("lua package.loaded['transmit.util'] = nil")
+				vim.cmd("lua package.loaded['transmit.watcher'] = nil")
+				vim.cmd("lua package.loaded['transmit.sftp'] = nil")
+				vim.cmd("lua package.loaded['transmit.sftp-queue'] = nil")
+				vim.cmd("lua package.loaded['transmit.ui'] = nil")
+
+				vim.cmd("lua require('user/plugins/utils/config/transmit')")
+
+				local transmit = require('transmit')
+
+				transmit.setup({
+					config_location = "/home/declanb/transmit_sftp/config.json",
+					upload_on_bufwrite = false,
+					watch_for_changes = true
+				})
+			end
+
+			vim.api.nvim_create_user_command('TransmitReload', function()
+				loadTransmit()
+			end,{})
 		end
 	},
 	-- Pairs of handy bracket mappings, like [b and ]b.
 	{ 'tpope/vim-unimpaired' },
-	{ 'easymotion/vim-easymotion' },
-
-	-- Useful commands like :Rename and :SudoWrite.
-	{ 'tpope/vim-eunuch' },
 	{
 		'jinh0/eyeliner.nvim',
 		config = function()
@@ -50,19 +80,10 @@ return {
 	{ 'tpope/vim-repeat' },
 	-- Jump to the last location when opening a file.
 	{ 'farmergreg/vim-lastplace' },
-	-- Enable * searching with visually selected text.
-	{ 'nelstrom/vim-visual-star-search' },
 	-- Text objects for HTML attributes.
 	{
 		'whatyouhide/vim-textobj-xmlattr',
 		dependencies = 'kana/vim-textobj-user',
-	},
-	-- Automatically fix indentation when pasting code.
-	{
-		'sickill/vim-pasta',
-		config = function()
-			vim.g.pasta_disabled_filetypes = { 'fugitive' }
-		end,
 	},
 	{
 		"ohakutsu/socks-copypath.nvim",

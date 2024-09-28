@@ -33,7 +33,7 @@ require('lualine').setup({
 	  -- end,
     },
     lualine_d = {
-      'Transmit Server: ' .. require('transmit').get_current_server()
+      -- 'Transmit Server: ' .. require('transmit').get_current_server()
     },
     lualine_x = {
       'filetype',

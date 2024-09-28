@@ -1,4 +1,7 @@
 local transmit = require('transmit')
+
+vim.print("Loading transmit")
+
 transmit.setup({
 	config_location = "/home/declanb/transmit_sftp/config.json",
 	upload_on_bufwrite = false,

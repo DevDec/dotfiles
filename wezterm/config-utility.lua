@@ -2,7 +2,6 @@ local utility = {}
 local wezterm = require 'wezterm'
 local mux = wezterm.mux
 local act = wezterm.action
-local dimmer = { brightness = 0.02 }
 
 utility.setTabSwitch = function(config)
 	for i = 1, 8 do

@@ -14,4 +14,7 @@ require('user/options')
 require('user/keymaps')
 require("user/plugins")
 
-
+local plenary = require("plenary")
+function RELOAD(...)
+	plenary.reload.reload_module(...)
+end

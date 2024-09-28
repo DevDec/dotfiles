@@ -1,13 +1,22 @@
 local wezterm = require 'wezterm'
+local worktrees = require 'worktrees'
+
 local act = wezterm.action
 
 return {
+	worktrees.switch_worktree_binding(),
+	worktrees.create_worktree_binding(),
 	{
 		key = 'w',
 		mods = 'LEADER',
 		action = act.ShowLauncherArgs {
 			flags = 'FUZZY|WORKSPACES',
 		},
+	},
+	{
+		key = 'd',
+		mods = 'LEADER',
+		action = wezterm.action.CloseCurrentPane { confirm = true },
 	},
 	{
 		key = 'c',
@@ -56,4 +65,26 @@ return {
 		},
 	},
 	{ key = 'q', mods = 'LEADER', action = wezterm.action.QuitApplication },
+	{
+		key = 'h',
+		mods = 'CTRL|SHIFT',
+		action = act.ActivatePaneDirection 'Left',
+	},
+	{
+		key = 'l',
+		mods = 'CTRL|SHIFT',
+		action = act.ActivatePaneDirection 'Right',
+	},
+	{
+		key = 'k',
+		mods = 'CTRL|SHIFT',
+		action = act.ActivatePaneDirection 'Up',
+	},
+	{
+		key = 'DownArrow',
+		mods = 'CTRL|SHIFT',
+		action = act.ActivatePaneDirection 'Down',
+	},
+	-- CTRL-SHIFT-l activates the debug overlay
+	{ key = 'l', mods = 'LEADER', action = wezterm.action.ShowDebugOverlay },
 }

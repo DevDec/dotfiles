@@ -8,19 +8,6 @@ return {
 		end,
 	},
 	{
-		"j-hui/fidget.nvim",
-		config = function()
-			require('fidget').setup()
-		end
-	},
-	{
-		"karb94/neoscroll.nvim",
-		config = function()
-			require('neoscroll').setup {}
-		end
-	},
-	-- lazy.nvim
-	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {

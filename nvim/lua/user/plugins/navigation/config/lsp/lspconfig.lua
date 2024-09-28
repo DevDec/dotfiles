@@ -1,11 +1,3 @@
-local lsp_zero = require('lsp-zero')
-
-lsp_zero.on_attach(function(client, bufnr)
-	-- see :help lsp-zero-keybindings
-	-- to learn the available actions
-	lsp_zero.default_keymaps({ buffer = bufnr })
-end)
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local lspconfig = require('lspconfig')
@@ -136,7 +128,7 @@ lspconfig.lua_ls.setup {
 			workspace = {
 				library = {
 					vim.api.nvim_get_runtime_file("", true),
-					[vim.fn.expand('/home/declanb/Documents/Projects/transmit.nvim.git/main/')] = true
+					[vim.fn.expand('/home/declanb/Documents/Projects/transmit.nvim.git/module-changes/')] = true
 				},
 			},
 			telemetry = {

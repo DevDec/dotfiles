@@ -1,5 +1,23 @@
 local Terminal = require("toggleterm.terminal").Terminal
 
+require("toggleterm").setup({
+  size = function(term)
+    -- Full screen width and height
+    return vim.o.columns, vim.o.lines
+  end,
+  direction = "float",
+  open_mapping = [[<c-t>]], -- your preferred mapping
+  float_opts = {
+	  border = "curved", -- No border for full screen effect
+	  width = function()
+		  return vim.o.columns
+	  end,
+	  height = function()
+		  return vim.o.lines
+	  end,
+  },
+})
+
 local gitui = Terminal:new({
   cmd = "gitui",
   dir = "git_dir",
