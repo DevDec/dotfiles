@@ -1,11 +1,23 @@
 local separator = { '"▏"', color = 'StatusLineNonText' }
 
+local function get_current_server()
+	local transmit = require('transmit')
+
+	local server = transmit.get_current_server()
+	local remote = transmit.get_current_remote()
+
+	if server == "none" then
+		return " " .. server
+	end
+
+	return  " " .. server .. " > " .. remote
+end
+
 require('lualine').setup({
   options = {
     section_separators = '',
     component_separators = '',
     globalstatus = true,
-	-- theme = require('user/plugins/ui/config/lualinetheme').theme(),
     theme = {
       normal = {
         a = 'StatusLine',
@@ -26,7 +38,8 @@ require('lualine').setup({
       -- separator,
     },
     lualine_c = {
-	'filename'
+	'filename',
+	get_current_server,
 	  -- function()
 	  --  -- vim.print(require('lsp-progress').progress())
 	  --  return require('lsp-progress').progress()

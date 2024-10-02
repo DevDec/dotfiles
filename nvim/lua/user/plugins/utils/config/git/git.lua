@@ -1,15 +1,14 @@
 return {
-	-- Git integration.
 	{
-		'lewis6991/gitsigns.nvim',
+		'echasnovski/mini.diff',
+		version = 'stable',
 		config = function()
-			require('user/plugins/utils/config/git/gitsigns')
-		end,
+			require('mini.diff').setup({ view = { style = 'sign' } })
+			vim.keymap.set('n', 'gp', ':lua MiniDiff.toggle_overlay()<CR>')
+		end
 	},
-	-- Git commands.
 	{
 		'tpope/vim-fugitive',
 		dependencies = 'tpope/vim-rhubarb',
 	},
-	{ 'sindrets/diffview.nvim' },
 }

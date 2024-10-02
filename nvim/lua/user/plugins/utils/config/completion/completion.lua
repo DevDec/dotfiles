@@ -1,13 +1,13 @@
 return {
 	-- AI Assisted writing.
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		config = function()
-			require("user/plugins/utils/config/completion/copilot")
-		end,
-	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("user/plugins/utils/config/completion/copilot")
+	-- 	end,
+	-- },
 	{
 		"L3MON4D3/LuaSnip",
 		build = vim.fn.has "win32" ~= 0 and "make install_jsregexp" or nil,

@@ -23,7 +23,7 @@ utility.setWindowConfig = function(config)
 		top = 0,
 		bottom = 0
 	}
-	config.font_size = 10
+	config.font_size = 8
 	config.line_height = 2
 	config.window_decorations = "RESIZE"
 	-- config.color_scheme = "Dracula"
