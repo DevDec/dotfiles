@@ -1,5 +1,19 @@
 local separator = { '"▏"', color = 'StatusLineNonText' }
 
+local function escapePattern(str)
+    local specialCharacters = "([%.%+%-%%%[%]%*%?%^%$%(%)])"
+    return (str:gsub(specialCharacters, "%%%1"))
+end
+
+
+local function get_file_path()
+	local working_dir = vim.loop.cwd() .. "/"
+	local buf = vim.api.nvim_buf_get_name(0)
+
+	return string.gsub(buf, "^" .. vim.pesc(working_dir), "")
+	-- return string.gsub(buf, working_dir, "")
+end
+
 local function get_current_server()
 	local transmit = require('transmit')
 
@@ -38,16 +52,19 @@ require('lualine').setup({
       -- separator,
     },
     lualine_c = {
-	'filename',
+	-- 'filename',
+	get_file_path,
 	get_current_server,
+	require("recorder").displaySlots,
+	require("recorder").recordingStatus
 	  -- function()
 	  --  -- vim.print(require('lsp-progress').progress())
 	  --  return require('lsp-progress').progress()
 	  -- end,
     },
-    lualine_d = {
-      -- 'Transmit Server: ' .. require('transmit').get_current_server()
-    },
+    -- lualine_d = {
+    --   -- 'Transmit Server: ' .. require('transmit').get_current_server()
+    -- },
     lualine_x = {
       'filetype',
       'encoding',

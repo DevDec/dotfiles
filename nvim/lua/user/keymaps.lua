@@ -99,4 +99,4 @@ end
 -- Set the keymap
 vim.api.nvim_set_keymap('n', '<leader>r.', ':lua RepeatDotToEnd()<CR>', { noremap = true, silent = true })
 
-vim.keymap.set('n', 'qq', ':suspend<CR>')
+vim.keymap.set('n', '<leader>qq', ':suspend<CR>')

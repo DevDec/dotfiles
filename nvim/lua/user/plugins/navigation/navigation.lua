@@ -1,6 +1,7 @@
 return {
 	-- Fuzzy finder
 	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+	{'nvim-telescope/telescope-ui-select.nvim' },
 	{
 		'nvim-telescope/telescope.nvim',
 		dependencies = {
@@ -13,18 +14,30 @@ return {
 		end,
 	},
 	{
-		'nvim-tree/nvim-tree.lua',
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		},
 		config = function()
-			require("user/plugins/navigation/config/nvim-tree")
+			vim.keymap.set('n', '<leader>no', ':Neotree toggle reveal=true position=current<CR>')
 		end
 	},
+	-- {
+	-- 	'nvim-tree/nvim-tree.lua',
+	-- 	config = function()
+	-- 		require("user/plugins/navigation/config/nvim-tree")
+	-- 	end
+	-- },
 	{
 		'linrongbin16/lsp-progress.nvim',
 		config = function()
 			require('user/plugins/navigation/config/lsp/lsp-progress')
 		end,
 	},
-	-- Improved syntax highlighting
 	{
 		'nvim-treesitter/nvim-treesitter',
 		build = function()
@@ -81,5 +94,19 @@ return {
 				require("treesitter-context").go_to_context(vim.v.count1)
 			end, { silent = true })
 		end
+	},
+	{
+		"gbprod/phpactor.nvim",
+		-- build = function()
+		-- 	require("phpactor.handler.update")()
+		-- end,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"neovim/nvim-lspconfig"
+		},
+		opts = {
+			bin = "/usr/bin/phpactor",
+			-- you're options coes here
+		},
 	},
 }

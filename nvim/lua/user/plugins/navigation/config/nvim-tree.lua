@@ -28,5 +28,5 @@ require('nvim-tree').setup({
 -- end
 
 local api = require("nvim-tree.api")
-vim.keymap.set("n", "no", function() api.tree.open({ current_window = true }) end, { noremap = true })
+vim.keymap.set("n", "<leader>no", function() api.tree.open({ current_window = true }) end, { noremap = true })
 -- vim.keymap.set('n', '<Leader>nf', ':NvimTreeFocus<CR>')

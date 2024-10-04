@@ -20,6 +20,7 @@ if wezterm.config_builder then
 end
 
 configUtility.setWindowConfig(config)
+configUtility.setupSshDomains(config)
 config.leader = { key = 'a', mods = 'ALT', timeout_milliseconds = 2000  }
 config.keys = keyBindings
 config.front_end = "WebGpu"
