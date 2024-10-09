@@ -24,8 +24,13 @@ local function setHighlightGroupBackgroundColour(group, colour)
 	end
 end
 
-setHighlightGroupBackgroundColour("GitSigns", "#1f1f28")
-setHighlightGroupBackgroundColour("DiagnosticSign", "#1f1f28")
+-- setHighlightGroupBackgroundColour("GitSigns", "#1f1f28")
+setHighlightGroupBackgroundColour("GitSigns", "none")
+setHighlightGroupBackgroundColour("MiniDiff", "none")
+setHighlightGroupBackgroundColour("Telescope", "none")
+setHighlightGroupBackgroundColour("Treesitter", "none")
+-- setHighlightGroupBackgroundColour("DiagnosticSign", "#1f1f28")
+setHighlightGroupBackgroundColour("DiagnosticSign", "none")
 
 -- vim.cmd [[
 --   highlight Normal guibg=none

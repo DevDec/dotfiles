@@ -3,6 +3,8 @@ local wezterm = require 'wezterm'
 local mux = wezterm.mux
 local act = wezterm.action
 
+local dimmer = { brightness = 0.04 }
+
 utility.setTabSwitch = function(config)
 	for i = 1, 8 do
 		-- CTRL+ALT + number to activate that tab
@@ -30,15 +32,18 @@ utility.setWindowConfig = function(config)
 	config.warn_about_missing_glyphs = false
 	config.use_resize_increments = true
 	config.font = wezterm.font("JetBrains Mono Nerd Font")
+	-- config.window_background_opacity = 0.6
 
-	-- config.background = {
-	-- 	{
-	-- 		source = {
-	-- 			File = "/home/declanb/Pictures/Wallpapers/nordic-wallpaper.jpg",
-	-- 		},
-	-- 		hsb = dimmer,
-	-- 	},
-	-- }
+	config.background = {
+		{
+			source = {
+				File = "/home/declanb/Pictures/BingWallpapers/today.jpg",
+			},
+			repeat_x = 'Mirror',
+			hsb = dimmer,
+			attachment = { Parallax = 0.2 }
+		},
+	}
 
 	config.window_frame = {
 		-- The font used in the tab bar.
